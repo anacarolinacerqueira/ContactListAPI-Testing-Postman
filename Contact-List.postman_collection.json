@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "b9a08fb6-049f-4138-87ee-42401a0aea97",
+		"name": "Contact-List",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const userSchema = {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"        \"user\": {",
+							"            \"type\": \"object\",",
+							"            \"properties\": {",
+							"                \"_id\": { \"type\": \"string\" },",
+							"                \"firstName\": { \"type\": \"string\" },",
+							"                \"lastName\": { \"type\": \"string\" },",
+							"                \"email\": { \"type\": \"string\" },",
+							"                \"__v\": { \"type\": \"integer\" },",
+							"            },",
+							"            \"required\": [\"_id\", \"firstName\", \"lastName\", \"email\", \"__v\"]",
+							"        },",
+							"        \"token\": {\"type\": \"string\"},",
+							"    },",
+							"    \"required\": [\"user\", \"token\"],",
+							"};",
+							"",
+							"pm.test(\"Validate that returned schema is correct\", () => {",
+							"    pm.response.to.have.jsonSchema(userSchema);",
+							"});",
+							"",
+							"pm.test(\"Validate that successful request return a JSON body format\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"token\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"carolina@teste.com\",\n    \"password\": \"carolina\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{contact-list}}/users/login",
+					"host": [
+						"{{contact-list}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new Contact",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const contactSchema = {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"        \"_id\": {\"type\": \"string\"},",
+							"        \"firstName\": {\"type\": \"string\"},",
+							"        \"lastName\": {\"type\": \"string\"},",
+							"        \"birthdate\": {\"type\": \"string\"},",
+							"        \"email\": {\"type\": \"string\"},",
+							"        \"phone\": {\"type\": \"string\"},",
+							"        \"street1\": {\"type\": \"string\"},",
+							"        \"street2\": {\"type\": \"string\"},",
+							"        \"city\": {\"type\": \"string\"},",
+							"        \"stateProvince\": {\"type\": \"string\"},",
+							"        \"postalCode\": {\"type\": \"string\"},",
+							"        \"country\": {\"type\": \"string\"},",
+							"        \"owner\": {\"type\": \"string\"},",
+							"        \"__v\": {\"type\": \"integer\"},",
+							"    },",
+							"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\",  \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
+							"};",
+							"",
+							"pm.test(\"Validate that returned schema is correct\", () => {",
+							"    pm.response.to.have.jsonSchema(contactSchema);",
+							"});",
+							"",
+							"pm.test(\"Validate that successful request to add a contact returns a JSON body format\", function () {",
+							"    pm.response.to.have.status(201);",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"idUser\", jsonData._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{contact-list}}/contacts",
+					"host": [
+						"{{contact-list}}"
+					],
+					"path": [
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Contact by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const contactSchema = {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"        \"_id\": {\"type\": \"string\"},",
+							"        \"firstName\": {\"type\": \"string\"},",
+							"        \"lastName\": {\"type\": \"string\"},",
+							"        \"birthdate\": {\"type\": \"string\"},",
+							"        \"email\": {\"type\": \"string\"},",
+							"        \"phone\": {\"type\": \"string\"},",
+							"        \"street1\": {\"type\": \"string\"},",
+							"        \"street2\": {\"type\": \"string\"},",
+							"        \"city\": {\"type\": \"string\"},",
+							"        \"stateProvince\": {\"type\": \"string\"},",
+							"        \"postalCode\": {\"type\": \"string\"},",
+							"        \"country\": {\"type\": \"string\"},",
+							"        \"owner\": {\"type\": \"string\"},",
+							"        \"__v\": {\"type\": \"integer\"},",
+							"    },",
+							"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\",  \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
+							"};",
+							"",
+							"pm.test(\"Validate that returned schema is correct\", () => {",
+							"    pm.response.to.have.jsonSchema(contactSchema);",
+							"});",
+							"",
+							"pm.test(\"Validate that successful request to get a contact returns a JSON body format\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{contact-list}}/contacts/{{idUser}}",
+					"host": [
+						"{{contact-list}}"
+					],
+					"path": [
+						"contacts",
+						"{{idUser}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Contacts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//newman run Contact\\ List.postman_collection.json -e Contact\\ List.postman_collection.json -r htmlextra",
+							"",
+							"const contactItems = {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"        \"_id\": {\"type\": \"string\"},",
+							"        \"firstName\": {\"type\": \"string\"},",
+							"        \"lastName\": {\"type\": \"string\"},",
+							"        \"birthdate\": {\"type\": \"string\"},",
+							"        \"email\": {\"type\": \"string\"},",
+							"        \"phone\": {\"type\": \"string\"},",
+							"        \"street1\": {\"type\": \"string\"},",
+							"        \"street2\": {\"type\": \"string\"},",
+							"        \"city\": {\"type\": \"string\"},",
+							"        \"stateProvince\": {\"type\": \"string\"},",
+							"        \"postalCode\": {\"type\": \"string\"},",
+							"        \"country\": {\"type\": \"string\"},",
+							"        \"owner\": {\"type\": \"string\"},",
+							"        \"__v\": {\"type\": \"integer\"},",
+							"    },",
+							"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\", \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
+							"}",
+							"",
+							"const contactSchema = {",
+							"    \"type\": \"array\",",
+							"        \"items\": contactItems",
+							"}",
+							"",
+							"pm.test(\"Validate that returned schema is correct\", () => {",
+							"    pm.response.to.have.jsonSchema(contactSchema);",
+							"});",
+							"",
+							"pm.test(\"Validate that successful request to get a contact returns a JSON body format\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{contact-list}}/contacts",
+					"host": [
+						"{{contact-list}}"
+					],
+					"path": [
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
