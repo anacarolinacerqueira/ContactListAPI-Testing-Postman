@@ -28,7 +28,7 @@ jobs:
         
    # Run the POSTMAN collection
       - name: Run API Tests
-        run: newman run files/Contact-List.postman_collection.json -e files/Contact-list.postman_environment.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html
+        run: newman run files/Contact-List.postman_collection.json -e files/Contact-list.postman_environment.json -r htmlextra --reporter-htmlextra-export-title "Contact List API - Test Summary" testResults/htmlreport.html
 
     # Upload the contents of Test Results directory to workspace
       - name: Output the run Details
