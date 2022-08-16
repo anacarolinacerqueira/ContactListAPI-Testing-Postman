@@ -16,10 +16,10 @@ The flow is set in continuous integration (CI) pipeline with Github Actions. For
 * Click on "Actions" tab in this repo; <br> 
 * Click on the last workflow run; <br>
 * In the page bottom, you can see the "Artifacts" session; <br>
-![Gif tutorial to access the actions tab at this repo](/continuous%20integration%20-%20github%20actions.gif)
+![Gif tutorial to access the actions tab at this repo](/assets/continuous%20integration%20-%20github%20actions.gif)
 
 * Download the report file, and open it in your favorite browswer to see the test results <3 .<br>
-![Report example with htmlextra](/test%20execution%20report.gif)
+![Report example with htmlextra](/assets/test%20execution%20report.gif)
 
 ### Running locally
 
