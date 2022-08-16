@@ -6,1023 +6,2985 @@
 	},
 	"item": [
 		{
-			"name": "Succesfull Login",
-			"event": [
+			"name": "Login",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var jsonData = pm.response.json();",
-							"pm.environment.set(\"token\", jsonData.token);",
-							"",
-							"const userSchema = {",
-							"    \"type\": \"object\",",
-							"    \"properties\": {",
-							"        \"user\": {",
-							"            \"type\": \"object\",",
-							"            \"properties\": {",
-							"                \"_id\": { \"type\": \"string\" },",
-							"                \"firstName\": { \"type\": \"string\" },",
-							"                \"lastName\": { \"type\": \"string\" },",
-							"                \"email\": { \"type\": \"string\" },",
-							"                \"__v\": { \"type\": \"integer\" },",
-							"            },",
-							"            \"required\": [\"_id\", \"firstName\", \"lastName\", \"email\", \"__v\"]",
-							"        },",
-							"        \"token\": {\"type\": \"string\"},",
-							"    },",
-							"    \"required\": [\"user\", \"token\"],",
-							"};",
-							"",
-							"pm.test(\"Validate that returned schema is correct\", () => {",
-							"    pm.response.to.have.jsonSchema(userSchema);",
-							"});",
-							"",
-							"pm.test(\"Validate that a successful request return a JSON body format\", function () {",
-							"    pm.response.to.have.status(200);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"carolina@teste.com\",\n    \"password\": \"carolina\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "Succesfull Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//get a token returned from response and set in a global variable that will be used in other requests",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"",
+									"const userSchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"user\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"_id\": { \"type\": \"string\" },",
+									"                \"firstName\": { \"type\": \"string\" },",
+									"                \"lastName\": { \"type\": \"string\" },",
+									"                \"email\": { \"type\": \"string\" },",
+									"                \"__v\": { \"type\": \"integer\" },",
+									"            },",
+									"            \"required\": [\"_id\", \"firstName\", \"lastName\", \"email\", \"__v\"]",
+									"        },",
+									"        \"token\": {\"type\": \"string\"},",
+									"    },",
+									"    \"required\": [\"user\", \"token\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(userSchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a successful request return a JSON body format\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "{{contact-list}}/users/login",
-					"host": [
-						"{{contact-list}}"
 					],
-					"path": [
-						"users",
-						"login"
-					]
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"carolina@teste.com\",\n    \"password\": \"carolina\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/users/login",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Add new Contact",
-			"event": [
+			"name": "Add new contact",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"const contactSchema = {",
-							"    \"type\": \"object\",",
-							"    \"properties\": {",
-							"        \"_id\": {\"type\": \"string\"},",
-							"        \"firstName\": {\"type\": \"string\"},",
-							"        \"lastName\": {\"type\": \"string\"},",
-							"        \"birthdate\": {\"type\": \"string\"},",
-							"        \"email\": {\"type\": \"string\"},",
-							"        \"phone\": {\"type\": \"string\"},",
-							"        \"street1\": {\"type\": \"string\"},",
-							"        \"street2\": {\"type\": \"string\"},",
-							"        \"city\": {\"type\": \"string\"},",
-							"        \"stateProvince\": {\"type\": \"string\"},",
-							"        \"postalCode\": {\"type\": \"string\"},",
-							"        \"country\": {\"type\": \"string\"},",
-							"        \"owner\": {\"type\": \"string\"},",
-							"        \"__v\": {\"type\": \"integer\"},",
-							"    },",
-							"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\",  \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
-							"};",
-							"",
-							"pm.test(\"Validate that returned schema is correct\", () => {",
-							"    pm.response.to.have.jsonSchema(contactSchema);",
-							"});",
-							"",
-							"pm.test(\"Validate that a successful request to add a contact returns a JSON body format\", function () {",
-							"    pm.response.to.have.status(201);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});",
-							"",
-							"var jsonData = pm.response.json();",
-							"pm.environment.set(\"idUser\", jsonData._id);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"name": "Successful Add new Contact",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const contactSchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_id\": {\"type\": \"string\"},",
+									"        \"firstName\": {\"type\": \"string\"},",
+									"        \"lastName\": {\"type\": \"string\"},",
+									"        \"birthdate\": {\"type\": \"string\"},",
+									"        \"email\": {\"type\": \"string\"},",
+									"        \"phone\": {\"type\": \"string\"},",
+									"        \"street1\": {\"type\": \"string\"},",
+									"        \"street2\": {\"type\": \"string\"},",
+									"        \"city\": {\"type\": \"string\"},",
+									"        \"stateProvince\": {\"type\": \"string\"},",
+									"        \"postalCode\": {\"type\": \"string\"},",
+									"        \"country\": {\"type\": \"string\"},",
+									"        \"owner\": {\"type\": \"string\"},",
+									"        \"__v\": {\"type\": \"integer\"},",
+									"    },",
+									"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\",  \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(contactSchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a successful request to add a contact returns a JSON body format\", function () {",
+									"    pm.response.to.have.status(201);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"idUser\", jsonData._id);"
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"Carla\",\n    \"lastName\": \"Silva\",\n    \"birthdate\": \"1994-11-25\",\n    \"email\": \"carolinna@teste.com\",\n    \"phone\": \"718888888\",\n    \"street1\": \"Rua Teste 2\",\n    \"street2\": \"Rua das APIS 2\",\n    \"city\": \"Ourinhos\",\n    \"stateProvince\": \"MG\",\n    \"postalCode\": \"3257444\",\n    \"country\": \"Brazil\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{contact-list}}/contacts",
-					"host": [
-						"{{contact-list}}"
 					],
-					"path": [
-						"contacts"
-					]
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Carliane\",\n    \"lastName\": \"Silva\",\n    \"birthdate\": \"1994-11-25\",\n    \"email\": \"carolinna@teste.com\",\n    \"phone\": \"718888888\",\n    \"street1\": \"Rua Teste 2\",\n    \"street2\": \"Rua das APIS 2\",\n    \"city\": \"Ourinhos\",\n    \"stateProvince\": \"MG\",\n    \"postalCode\": \"3257444\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Successful Add a second new Contact (to be deleted)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const contactSchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_id\": {\"type\": \"string\"},",
+									"        \"firstName\": {\"type\": \"string\"},",
+									"        \"lastName\": {\"type\": \"string\"},",
+									"        \"birthdate\": {\"type\": \"string\"},",
+									"        \"email\": {\"type\": \"string\"},",
+									"        \"phone\": {\"type\": \"string\"},",
+									"        \"street1\": {\"type\": \"string\"},",
+									"        \"street2\": {\"type\": \"string\"},",
+									"        \"city\": {\"type\": \"string\"},",
+									"        \"stateProvince\": {\"type\": \"string\"},",
+									"        \"postalCode\": {\"type\": \"string\"},",
+									"        \"country\": {\"type\": \"string\"},",
+									"        \"owner\": {\"type\": \"string\"},",
+									"        \"__v\": {\"type\": \"integer\"},",
+									"    },",
+									"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\",  \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(contactSchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a successful request to add a contact returns a JSON body format\", function () {",
+									"    pm.response.to.have.status(201);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"idUser2\", jsonData._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Carliane\",\n    \"lastName\": \"Silva\",\n    \"birthdate\": \"1994-11-25\",\n    \"email\": \"carolinna@teste.com\",\n    \"phone\": \"718888888\",\n    \"street1\": \"Rua Teste 2\",\n    \"street2\": \"Rua das APIS 2\",\n    \"city\": \"Ourinhos\",\n    \"stateProvince\": \"MG\",\n    \"postalCode\": \"3257444\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending empty value to firstName field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Path `firstName` is required\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending  empty value to lastName field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Path `lastName` is required\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending  empty value to birthDate field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Birthdate is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending invalid value to birthDate field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Birthdate is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"01-01-2020\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending empty to email field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Email is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending invalid value to email field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Email is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"email-invalid-format\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending invalid value to phone field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Phone number is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"test@test.com\",\n    \"phone\": \"719\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Failure to Add new Contact sending empty value to firstName field",
-			"event": [
+			"name": "Update contacts (PUT)",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"const emptySchema = {",
-							"    \"type\": \"object\",",
-							"    \"properties\": {",
-							"    \"errors\":{",
-							"        \"type\": \"object\",",
-							"        \"properties\": {",
-							"            \"firstName\": {",
-							"                \"type\": \"object\",",
-							"                \"properties\": {",
-							"                    \"name\": {\"type\": \"string\"},",
-							"                    \"message\": {\"type\": \"string\"},",
-							"                    \"properties\": {",
-							"                        \"type\": \"object\",",
-							"                        \"properties\":{",
-							"                            \"message\": {\"type\": \"string\"},",
-							"                            \"type\": {\"type\": \"string\"},",
-							"                            \"path\": {\"type\": \"string\"},",
-							"                            \"value\": {\"type\": \"string\"}",
-							"                        },",
-							"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
-							"                    },",
-							"                    \"kind\": {\"type\": \"string\"},",
-							"                    \"path\": {\"type\": \"string\"},",
-							"                    \"value\": {\"type\": \"string\"},",
-							"                },",
-							"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
-							"                },",
-							"                \"_message\": {\"type\": \"string\"},",
-							"                \"message\": {\"type\": \"string\"},",
-							"            },",
-							"        } ",
-							"    },",
-							"    \"required\": [\"errors\", \"message\", \"_message\"],",
-							"};",
-							"",
-							"pm.test(\"Validate that returned schema is correct\", () => {",
-							"    pm.response.to.have.jsonSchema(emptySchema);",
-							"});",
-							"",
-							"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
-							"    pm.response.to.have.status(400);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});",
-							"",
-							"pm.test(\"Validate that correct error messages are displayed\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Path `firstName` is required\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"name": "Successful Update a new Contact",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const contactSchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_id\": {\"type\": \"string\"},",
+									"        \"firstName\": {\"type\": \"string\"},",
+									"        \"lastName\": {\"type\": \"string\"},",
+									"        \"birthdate\": {\"type\": \"string\"},",
+									"        \"email\": {\"type\": \"string\"},",
+									"        \"phone\": {\"type\": \"string\"},",
+									"        \"street1\": {\"type\": \"string\"},",
+									"        \"street2\": {\"type\": \"string\"},",
+									"        \"city\": {\"type\": \"string\"},",
+									"        \"stateProvince\": {\"type\": \"string\"},",
+									"        \"postalCode\": {\"type\": \"string\"},",
+									"        \"country\": {\"type\": \"string\"},",
+									"        \"owner\": {\"type\": \"string\"},",
+									"        \"__v\": {\"type\": \"integer\"},",
+									"    },",
+									"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\",  \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(contactSchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a successful request to update a contact returns a JSON body format\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{contact-list}}/contacts",
-					"host": [
-						"{{contact-list}}"
 					],
-					"path": [
-						"contacts"
-					]
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Carla\",\n    \"lastName\": \"Silva\",\n    \"birthdate\": \"1994-11-25\",\n    \"email\": \"carolinna@teste.com\",\n    \"phone\": \"718888888\",\n    \"street1\": \"Rua Teste 2\",\n    \"street2\": \"Rua das APIS 2\",\n    \"city\": \"Ourinhos\",\n    \"stateProvince\": \"MG\",\n    \"postalCode\": \"3257444\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending empty value to firstName field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Path `firstName` is required\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending  empty value to lastName field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Path `lastName` is required\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending  empty value to birthDate field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Birthdate is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending invalid value to birthDate field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Birthdate is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"01-01-2020\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending empty to email field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Email is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending invalid value to email field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Email is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"email-invalid-format\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending invalid value to phone field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Phone number is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"test@test.com\",\n    \"phone\": \"719\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Failure to Add new Contact sending  empty value to lastName field",
-			"event": [
+			"name": "Update contacts (PATCH)",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"const emptySchema = {",
-							"    \"type\": \"object\",",
-							"    \"properties\": {",
-							"    \"errors\":{",
-							"        \"type\": \"object\",",
-							"        \"properties\": {",
-							"            \"firstName\": {",
-							"                \"type\": \"object\",",
-							"                \"properties\": {",
-							"                    \"name\": {\"type\": \"string\"},",
-							"                    \"message\": {\"type\": \"string\"},",
-							"                    \"properties\": {",
-							"                        \"type\": \"object\",",
-							"                        \"properties\":{",
-							"                            \"message\": {\"type\": \"string\"},",
-							"                            \"type\": {\"type\": \"string\"},",
-							"                            \"path\": {\"type\": \"string\"},",
-							"                            \"value\": {\"type\": \"string\"}",
-							"                        },",
-							"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
-							"                    },",
-							"                    \"kind\": {\"type\": \"string\"},",
-							"                    \"path\": {\"type\": \"string\"},",
-							"                    \"value\": {\"type\": \"string\"},",
-							"                },",
-							"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
-							"                },",
-							"                \"_message\": {\"type\": \"string\"},",
-							"                \"message\": {\"type\": \"string\"},",
-							"            },",
-							"        } ",
-							"    },",
-							"    \"required\": [\"errors\", \"message\", \"_message\"],",
-							"};",
-							"",
-							"pm.test(\"Validate that returned schema is correct\", () => {",
-							"    pm.response.to.have.jsonSchema(emptySchema);",
-							"});",
-							"",
-							"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
-							"    pm.response.to.have.status(400);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});",
-							"",
-							"pm.test(\"Validate that correct error messages are displayed\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Path `lastName` is required\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"name": "Successful Update a new Contact",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const contactSchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_id\": {\"type\": \"string\"},",
+									"        \"firstName\": {\"type\": \"string\"},",
+									"        \"lastName\": {\"type\": \"string\"},",
+									"        \"birthdate\": {\"type\": \"string\"},",
+									"        \"email\": {\"type\": \"string\"},",
+									"        \"phone\": {\"type\": \"string\"},",
+									"        \"street1\": {\"type\": \"string\"},",
+									"        \"street2\": {\"type\": \"string\"},",
+									"        \"city\": {\"type\": \"string\"},",
+									"        \"stateProvince\": {\"type\": \"string\"},",
+									"        \"postalCode\": {\"type\": \"string\"},",
+									"        \"country\": {\"type\": \"string\"},",
+									"        \"owner\": {\"type\": \"string\"},",
+									"        \"__v\": {\"type\": \"integer\"},",
+									"    },",
+									"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\",  \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(contactSchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a successful request to update a contact returns a JSON body format\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{contact-list}}/contacts",
-					"host": [
-						"{{contact-list}}"
 					],
-					"path": [
-						"contacts"
-					]
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Mario Alberto\",\n    \"lastName\": \"Correia\",\n    \"birthdate\": \"1988-11-25\",\n    \"email\": \"marioalberto@teste.com\",\n    \"phone\": \"778888888\",\n    \"street1\": \"Rua Teste 25\",\n    \"street2\": \"Rua das APIS 22\",\n    \"city\": \"Rio de Janeiro\",\n    \"stateProvince\": \"RJ\",\n    \"postalCode\": \"54524\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser2}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending empty value to firstName field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Path `firstName` is required\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending  empty value to lastName field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Path `lastName` is required\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending  empty value to birthDate field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Birthdate is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending invalid value to birthDate field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Birthdate is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"01-01-2020\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending empty to email field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Email is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending invalid value to email field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Email is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"email-invalid-format\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending invalid value to phone field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Phone number is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"test@test.com\",\n    \"phone\": \"719\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Failure to Add new Contact sending  empty value to bithDate field",
-			"event": [
+			"name": "Get contacts",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"const emptySchema = {",
-							"    \"type\": \"object\",",
-							"    \"properties\": {",
-							"    \"errors\":{",
-							"        \"type\": \"object\",",
-							"        \"properties\": {",
-							"            \"firstName\": {",
-							"                \"type\": \"object\",",
-							"                \"properties\": {",
-							"                    \"name\": {\"type\": \"string\"},",
-							"                    \"message\": {\"type\": \"string\"},",
-							"                    \"properties\": {",
-							"                        \"type\": \"object\",",
-							"                        \"properties\":{",
-							"                            \"message\": {\"type\": \"string\"},",
-							"                            \"type\": {\"type\": \"string\"},",
-							"                            \"path\": {\"type\": \"string\"},",
-							"                            \"value\": {\"type\": \"string\"}",
-							"                        },",
-							"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
-							"                    },",
-							"                    \"kind\": {\"type\": \"string\"},",
-							"                    \"path\": {\"type\": \"string\"},",
-							"                    \"value\": {\"type\": \"string\"},",
-							"                },",
-							"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
-							"                },",
-							"                \"_message\": {\"type\": \"string\"},",
-							"                \"message\": {\"type\": \"string\"},",
-							"            },",
-							"        } ",
-							"    },",
-							"    \"required\": [\"errors\", \"message\", \"_message\"],",
-							"};",
-							"",
-							"pm.test(\"Validate that returned schema is correct\", () => {",
-							"    pm.response.to.have.jsonSchema(emptySchema);",
-							"});",
-							"",
-							"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
-							"    pm.response.to.have.status(400);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});",
-							"",
-							"pm.test(\"Validate that correct error messages are displayed\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Birthdate is invalid\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"name": "Get a Contact by id",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const contactSchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_id\": {\"type\": \"string\"},",
+									"        \"firstName\": {\"type\": \"string\"},",
+									"        \"lastName\": {\"type\": \"string\"},",
+									"        \"birthdate\": {\"type\": \"string\"},",
+									"        \"email\": {\"type\": \"string\"},",
+									"        \"phone\": {\"type\": \"string\"},",
+									"        \"street1\": {\"type\": \"string\"},",
+									"        \"street2\": {\"type\": \"string\"},",
+									"        \"city\": {\"type\": \"string\"},",
+									"        \"stateProvince\": {\"type\": \"string\"},",
+									"        \"postalCode\": {\"type\": \"string\"},",
+									"        \"country\": {\"type\": \"string\"},",
+									"        \"owner\": {\"type\": \"string\"},",
+									"        \"__v\": {\"type\": \"integer\"},",
+									"    },",
+									"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\",  \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(contactSchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a successful request to get a contact returns a JSON body format\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{contact-list}}/contacts",
-					"host": [
-						"{{contact-list}}"
 					],
-					"path": [
-						"contacts"
-					]
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{contact-list}}/contacts/{{idUser}}",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								"{{idUser}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contact List (all contacts)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//newman run Contact\\ List.postman_collection.json -e Contact\\ List.postman_collection.json -r htmlextra",
+									"",
+									"const contactItems = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_id\": {\"type\": \"string\"},",
+									"        \"firstName\": {\"type\": \"string\"},",
+									"        \"lastName\": {\"type\": \"string\"},",
+									"        \"birthdate\": {\"type\": \"string\"},",
+									"        \"email\": {\"type\": \"string\"},",
+									"        \"phone\": {\"type\": \"string\"},",
+									"        \"street1\": {\"type\": \"string\"},",
+									"        \"street2\": {\"type\": \"string\"},",
+									"        \"city\": {\"type\": \"string\"},",
+									"        \"stateProvince\": {\"type\": \"string\"},",
+									"        \"postalCode\": {\"type\": \"string\"},",
+									"        \"country\": {\"type\": \"string\"},",
+									"        \"owner\": {\"type\": \"string\"},",
+									"        \"__v\": {\"type\": \"integer\"},",
+									"    },",
+									"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\", \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
+									"}",
+									"",
+									"const contactSchema = {",
+									"    \"type\": \"array\",",
+									"        \"items\": contactItems",
+									"}",
+									"",
+									"pm.test(\"Validate that a returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(contactSchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a successful request to get a contact returns a JSON body format\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that contacts addedd are returned correctly\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Carla\");",
+									"    pm.expect(pm.response.text()).to.include(\"Mario Alberto\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{contact-list}}/contacts",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Failure to Add new Contact sending invalid value to bithDate field",
-			"event": [
+			"name": "Delete contacts",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"const emptySchema = {",
-							"    \"type\": \"object\",",
-							"    \"properties\": {",
-							"    \"errors\":{",
-							"        \"type\": \"object\",",
-							"        \"properties\": {",
-							"            \"firstName\": {",
-							"                \"type\": \"object\",",
-							"                \"properties\": {",
-							"                    \"name\": {\"type\": \"string\"},",
-							"                    \"message\": {\"type\": \"string\"},",
-							"                    \"properties\": {",
-							"                        \"type\": \"object\",",
-							"                        \"properties\":{",
-							"                            \"message\": {\"type\": \"string\"},",
-							"                            \"type\": {\"type\": \"string\"},",
-							"                            \"path\": {\"type\": \"string\"},",
-							"                            \"value\": {\"type\": \"string\"}",
-							"                        },",
-							"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
-							"                    },",
-							"                    \"kind\": {\"type\": \"string\"},",
-							"                    \"path\": {\"type\": \"string\"},",
-							"                    \"value\": {\"type\": \"string\"},",
-							"                },",
-							"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
-							"                },",
-							"                \"_message\": {\"type\": \"string\"},",
-							"                \"message\": {\"type\": \"string\"},",
-							"            },",
-							"        } ",
-							"    },",
-							"    \"required\": [\"errors\", \"message\", \"_message\"],",
-							"};",
-							"",
-							"pm.test(\"Validate that returned schema is correct\", () => {",
-							"    pm.response.to.have.jsonSchema(emptySchema);",
-							"});",
-							"",
-							"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
-							"    pm.response.to.have.status(400);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});",
-							"",
-							"pm.test(\"Validate that correct error messages are displayed\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Birthdate is invalid\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"name": "Successful Delete a Contact (1)",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate that request to get a delete a contact does'nt returns a JSON body format\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.response.to.not.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that the correct deletion message is returned\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Contact deleted\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"01-01-2020\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{contact-list}}/contacts",
-					"host": [
-						"{{contact-list}}"
 					],
-					"path": [
-						"contacts"
-					]
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{contact-list}}/contacts/:idDelete",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								":idDelete"
+							],
+							"variable": [
+								{
+									"key": "idDelete",
+									"value": "{{idUser}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Successful Delete a Contact",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate that request to get a delete a contact does'nt returns a JSON body format\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.response.to.not.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that the correct deletion message is returned\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Contact deleted\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{contact-list}}/contacts/:idDelete",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								":idDelete"
+							],
+							"variable": [
+								{
+									"key": "idDelete",
+									"value": "{{idUser2}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Delete a Contact that does'nt exists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate that a successful request to get a contact does'nt returns a JSON body format\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    pm.response.to.not.be.json;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{contact-list}}/contacts/:idDelete",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts",
+								":idDelete"
+							],
+							"variable": [
+								{
+									"key": "idDelete",
+									"value": "{{idUser2}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		},
 		{
-			"name": "Failure to Add new Contact sending empty to email field",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"const emptySchema = {",
-							"    \"type\": \"object\",",
-							"    \"properties\": {",
-							"    \"errors\":{",
-							"        \"type\": \"object\",",
-							"        \"properties\": {",
-							"            \"firstName\": {",
-							"                \"type\": \"object\",",
-							"                \"properties\": {",
-							"                    \"name\": {\"type\": \"string\"},",
-							"                    \"message\": {\"type\": \"string\"},",
-							"                    \"properties\": {",
-							"                        \"type\": \"object\",",
-							"                        \"properties\":{",
-							"                            \"message\": {\"type\": \"string\"},",
-							"                            \"type\": {\"type\": \"string\"},",
-							"                            \"path\": {\"type\": \"string\"},",
-							"                            \"value\": {\"type\": \"string\"}",
-							"                        },",
-							"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
-							"                    },",
-							"                    \"kind\": {\"type\": \"string\"},",
-							"                    \"path\": {\"type\": \"string\"},",
-							"                    \"value\": {\"type\": \"string\"},",
-							"                },",
-							"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
-							"                },",
-							"                \"_message\": {\"type\": \"string\"},",
-							"                \"message\": {\"type\": \"string\"},",
-							"            },",
-							"        } ",
-							"    },",
-							"    \"required\": [\"errors\", \"message\", \"_message\"],",
-							"};",
-							"",
-							"pm.test(\"Validate that returned schema is correct\", () => {",
-							"    pm.response.to.have.jsonSchema(emptySchema);",
-							"});",
-							"",
-							"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
-							"    pm.response.to.have.status(400);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});",
-							"",
-							"pm.test(\"Validate that correct error messages are displayed\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Email is invalid\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{contact-list}}/contacts",
-					"host": [
-						"{{contact-list}}"
-					],
-					"path": [
-						"contacts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Failure to Add new Contact sending invalid value to email field",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"const emptySchema = {",
-							"    \"type\": \"object\",",
-							"    \"properties\": {",
-							"    \"errors\":{",
-							"        \"type\": \"object\",",
-							"        \"properties\": {",
-							"            \"firstName\": {",
-							"                \"type\": \"object\",",
-							"                \"properties\": {",
-							"                    \"name\": {\"type\": \"string\"},",
-							"                    \"message\": {\"type\": \"string\"},",
-							"                    \"properties\": {",
-							"                        \"type\": \"object\",",
-							"                        \"properties\":{",
-							"                            \"message\": {\"type\": \"string\"},",
-							"                            \"type\": {\"type\": \"string\"},",
-							"                            \"path\": {\"type\": \"string\"},",
-							"                            \"value\": {\"type\": \"string\"}",
-							"                        },",
-							"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
-							"                    },",
-							"                    \"kind\": {\"type\": \"string\"},",
-							"                    \"path\": {\"type\": \"string\"},",
-							"                    \"value\": {\"type\": \"string\"},",
-							"                },",
-							"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
-							"                },",
-							"                \"_message\": {\"type\": \"string\"},",
-							"                \"message\": {\"type\": \"string\"},",
-							"            },",
-							"        } ",
-							"    },",
-							"    \"required\": [\"errors\", \"message\", \"_message\"],",
-							"};",
-							"",
-							"pm.test(\"Validate that returned schema is correct\", () => {",
-							"    pm.response.to.have.jsonSchema(emptySchema);",
-							"});",
-							"",
-							"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
-							"    pm.response.to.have.status(400);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});",
-							"",
-							"pm.test(\"Validate that correct error messages are displayed\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Email is invalid\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"email-invalid-format\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{contact-list}}/contacts",
-					"host": [
-						"{{contact-list}}"
-					],
-					"path": [
-						"contacts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Failure to Add new Contact sending invalid value to phone field",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"const emptySchema = {",
-							"    \"type\": \"object\",",
-							"    \"properties\": {",
-							"    \"errors\":{",
-							"        \"type\": \"object\",",
-							"        \"properties\": {",
-							"            \"firstName\": {",
-							"                \"type\": \"object\",",
-							"                \"properties\": {",
-							"                    \"name\": {\"type\": \"string\"},",
-							"                    \"message\": {\"type\": \"string\"},",
-							"                    \"properties\": {",
-							"                        \"type\": \"object\",",
-							"                        \"properties\":{",
-							"                            \"message\": {\"type\": \"string\"},",
-							"                            \"type\": {\"type\": \"string\"},",
-							"                            \"path\": {\"type\": \"string\"},",
-							"                            \"value\": {\"type\": \"string\"}",
-							"                        },",
-							"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
-							"                    },",
-							"                    \"kind\": {\"type\": \"string\"},",
-							"                    \"path\": {\"type\": \"string\"},",
-							"                    \"value\": {\"type\": \"string\"},",
-							"                },",
-							"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
-							"                },",
-							"                \"_message\": {\"type\": \"string\"},",
-							"                \"message\": {\"type\": \"string\"},",
-							"            },",
-							"        } ",
-							"    },",
-							"    \"required\": [\"errors\", \"message\", \"_message\"],",
-							"};",
-							"",
-							"pm.test(\"Validate that returned schema is correct\", () => {",
-							"    pm.response.to.have.jsonSchema(emptySchema);",
-							"});",
-							"",
-							"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
-							"    pm.response.to.have.status(400);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});",
-							"",
-							"pm.test(\"Validate that correct error messages are displayed\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Phone number is invalid\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"test@test.com\",\n    \"phone\": \"719\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{contact-list}}/contacts",
-					"host": [
-						"{{contact-list}}"
-					],
-					"path": [
-						"contacts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get a Contact by id",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"const contactSchema = {",
-							"    \"type\": \"object\",",
-							"    \"properties\": {",
-							"        \"_id\": {\"type\": \"string\"},",
-							"        \"firstName\": {\"type\": \"string\"},",
-							"        \"lastName\": {\"type\": \"string\"},",
-							"        \"birthdate\": {\"type\": \"string\"},",
-							"        \"email\": {\"type\": \"string\"},",
-							"        \"phone\": {\"type\": \"string\"},",
-							"        \"street1\": {\"type\": \"string\"},",
-							"        \"street2\": {\"type\": \"string\"},",
-							"        \"city\": {\"type\": \"string\"},",
-							"        \"stateProvince\": {\"type\": \"string\"},",
-							"        \"postalCode\": {\"type\": \"string\"},",
-							"        \"country\": {\"type\": \"string\"},",
-							"        \"owner\": {\"type\": \"string\"},",
-							"        \"__v\": {\"type\": \"integer\"},",
-							"    },",
-							"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\",  \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
-							"};",
-							"",
-							"pm.test(\"Validate that returned schema is correct\", () => {",
-							"    pm.response.to.have.jsonSchema(contactSchema);",
-							"});",
-							"",
-							"pm.test(\"Validate that a successful request to get a contact returns a JSON body format\", function () {",
-							"    pm.response.to.have.status(200);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{contact-list}}/contacts/{{idUser}}",
-					"host": [
-						"{{contact-list}}"
-					],
-					"path": [
-						"contacts",
-						"{{idUser}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get all Contacts",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"//newman run Contact\\ List.postman_collection.json -e Contact\\ List.postman_collection.json -r htmlextra",
-							"",
-							"const contactItems = {",
-							"    \"type\": \"object\",",
-							"    \"properties\": {",
-							"        \"_id\": {\"type\": \"string\"},",
-							"        \"firstName\": {\"type\": \"string\"},",
-							"        \"lastName\": {\"type\": \"string\"},",
-							"        \"birthdate\": {\"type\": \"string\"},",
-							"        \"email\": {\"type\": \"string\"},",
-							"        \"phone\": {\"type\": \"string\"},",
-							"        \"street1\": {\"type\": \"string\"},",
-							"        \"street2\": {\"type\": \"string\"},",
-							"        \"city\": {\"type\": \"string\"},",
-							"        \"stateProvince\": {\"type\": \"string\"},",
-							"        \"postalCode\": {\"type\": \"string\"},",
-							"        \"country\": {\"type\": \"string\"},",
-							"        \"owner\": {\"type\": \"string\"},",
-							"        \"__v\": {\"type\": \"integer\"},",
-							"    },",
-							"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\", \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
-							"}",
-							"",
-							"const contactSchema = {",
-							"    \"type\": \"array\",",
-							"        \"items\": contactItems",
-							"}",
-							"",
-							"pm.test(\"Validate that a returned schema is correct\", () => {",
-							"    pm.response.to.have.jsonSchema(contactSchema);",
-							"});",
-							"",
-							"pm.test(\"Validate that a successful request to get a contact returns a JSON body format\", function () {",
-							"    pm.response.to.have.status(200);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{contact-list}}/contacts",
-					"host": [
-						"{{contact-list}}"
-					],
-					"path": [
-						"contacts"
-					]
-				}
-			},
-			"response": []
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
