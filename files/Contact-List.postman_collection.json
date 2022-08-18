@@ -76,6 +76,90 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Faillure login with wrong email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate that a failure request does not return a JSON and has 401 Status Code\", function () {",
+									"    pm.response.to.have.status(401);",
+									"    pm.response.to.not.be.withBody;",
+									"    pm.response.to.not.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"carolinna@teste.com\",\n    \"password\": \"carolina\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/users/login",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Faillure login with wrong password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate that a failure request does not return a JSON and has 401 Status Code\", function () {",
+									"    pm.response.to.have.status(401);",
+									"    pm.response.to.not.be.withBody;",
+									"    pm.response.to.not.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"carolina@teste.com\",\n    \"password\": \"carolinna\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/users/login",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -2697,8 +2781,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"//newman run Contact\\ List.postman_collection.json -e Contact\\ List.postman_collection.json -r htmlextra",
-									"",
 									"const contactItems = {",
 									"    \"type\": \"object\",",
 									"    \"properties\": {",
