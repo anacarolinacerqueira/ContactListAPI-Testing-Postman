@@ -1,14 +1,14 @@
 ## :desktop_computer: Contact List API - Testing Project using Postman and Newman
 
+:heavy_check_mark: Test Status: [![Newman Tests](https://github.com/anacarolinacerqueira/ContactListAPI-Testing-Postman/actions/workflows/github-actions-newman-htmlextraReport.yaml/badge.svg)](https://github.com/anacarolinacerqueira/ContactListAPI-Testing-Postman/actions/workflows/github-actions-newman-htmlextraReport.yaml)
+
 <p align="center">
   <img alt="GitHub powered by" src="https://img.shields.io/badge/API%20Tests-Postman-orange">
   <!--- <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/anacarolinacerqueira/ContactListAPI-Testing-Postman">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/anacarolinacerqueira/ContactListAPI-Testing-Postman"> --->
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/anacarolinacerqueira/ContactListAPI-Testing-Postman">
 </p>
-<p align = "center">
-<img alt="GitHub test status" src="https://github.com/anacarolinacerqueira/ContactListAPI-Testing-Postman/actions/workflows/github-actions-newman-htmlextraReport.yaml/badge.svg?branch=main">
-</p>
+
   This repo is destined to store a set of API testing, using postman test scripts and Newman with html-extra template to report the test execution results. The flow is set in continuous integration (CI) pipeline with Github Actions. For each update, the routine runs, and a report is generated at the "Actions" tab.
 
 ### :spiral_notepad: About the service under Test
