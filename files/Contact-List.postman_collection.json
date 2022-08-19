@@ -50,6 +50,16 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"email\", \"carolina@teste.com\");",
+									"pm.collectionVariables.set(\"password\", \"carolina\");"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -57,7 +67,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"carolina@teste.com\",\n    \"password\": \"carolina\"\n}",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -92,6 +102,16 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"email\", \"carolinna@teste.com\");",
+									"pm.collectionVariables.set(\"password\", \"carolina\");"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -99,7 +119,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"carolinna@teste.com\",\n    \"password\": \"carolina\"\n}",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -134,6 +154,16 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"email\", \"carolina@teste.com\");",
+									"pm.collectionVariables.set(\"password\", \"carolinna\");"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -141,7 +171,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"carolina@teste.com\",\n    \"password\": \"carolinna\"\n}",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -235,7 +265,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Carliane\",\n    \"lastName\": \"Silva\",\n    \"birthdate\": \"1994-11-25\",\n    \"email\": \"carolinna@teste.com\",\n    \"phone\": \"718888888\",\n    \"street1\": \"Rua Teste 2\",\n    \"street2\": \"Rua das APIS 2\",\n    \"city\": \"Ourinhos\",\n    \"stateProvince\": \"MG\",\n    \"postalCode\": \"3257444\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -323,7 +353,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Carliane\",\n    \"lastName\": \"Silva\",\n    \"birthdate\": \"1994-11-25\",\n    \"email\": \"carolinna@teste.com\",\n    \"phone\": \"718888888\",\n    \"street1\": \"Rua Teste 2\",\n    \"street2\": \"Rua das APIS 2\",\n    \"city\": \"Ourinhos\",\n    \"stateProvince\": \"MG\",\n    \"postalCode\": \"3257444\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -358,7 +388,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"const emptySchema = {",
+									" const emptySchema = {",
 									"    \"type\": \"object\",",
 									"    \"properties\": {",
 									"    \"errors\":{",
@@ -426,7 +456,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -529,7 +559,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -632,7 +662,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \" \",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -658,7 +688,8 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									";",
+									"pm.collectionVariables.set(\"birthdate\", \"sjaiaerf\");"
 								],
 								"type": "text/javascript"
 							}
@@ -735,7 +766,110 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"01-01-2020\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{contact-list}}/contacts",
+							"host": [
+								"{{contact-list}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Failure to Add new Contact sending invalid value to email field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"email\", \"3432rf345f\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const emptySchema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"    \"errors\":{",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"firstName\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"name\": {\"type\": \"string\"},",
+									"                    \"message\": {\"type\": \"string\"},",
+									"                    \"properties\": {",
+									"                        \"type\": \"object\",",
+									"                        \"properties\":{",
+									"                            \"message\": {\"type\": \"string\"},",
+									"                            \"type\": {\"type\": \"string\"},",
+									"                            \"path\": {\"type\": \"string\"},",
+									"                            \"value\": {\"type\": \"string\"}",
+									"                        },",
+									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
+									"                    },",
+									"                    \"kind\": {\"type\": \"string\"},",
+									"                    \"path\": {\"type\": \"string\"},",
+									"                    \"value\": {\"type\": \"string\"},",
+									"                },",
+									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
+									"                },",
+									"                \"_message\": {\"type\": \"string\"},",
+									"                \"message\": {\"type\": \"string\"},",
+									"            },",
+									"        } ",
+									"    },",
+									"    \"required\": [\"errors\", \"message\", \"_message\"],",
+									"};",
+									"",
+									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
+									"    pm.response.to.have.jsonSchema(emptySchema);",
+									"});",
+									"",
+									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Validate that correct error messages are displayed\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Email is invalid\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{email}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -838,110 +972,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{contact-list}}/contacts",
-							"host": [
-								"{{contact-list}}"
-							],
-							"path": [
-								"contacts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Failure to Add new Contact sending invalid value to email field",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const emptySchema = {",
-									"    \"type\": \"object\",",
-									"    \"properties\": {",
-									"    \"errors\":{",
-									"        \"type\": \"object\",",
-									"        \"properties\": {",
-									"            \"firstName\": {",
-									"                \"type\": \"object\",",
-									"                \"properties\": {",
-									"                    \"name\": {\"type\": \"string\"},",
-									"                    \"message\": {\"type\": \"string\"},",
-									"                    \"properties\": {",
-									"                        \"type\": \"object\",",
-									"                        \"properties\":{",
-									"                            \"message\": {\"type\": \"string\"},",
-									"                            \"type\": {\"type\": \"string\"},",
-									"                            \"path\": {\"type\": \"string\"},",
-									"                            \"value\": {\"type\": \"string\"}",
-									"                        },",
-									"                        \"required\": [\"message\", \"type\", \"path\", \"value\"], ",
-									"                    },",
-									"                    \"kind\": {\"type\": \"string\"},",
-									"                    \"path\": {\"type\": \"string\"},",
-									"                    \"value\": {\"type\": \"string\"},",
-									"                },",
-									"                \"required\": [\"name\", \"message\", \"properties\", \"kind\", \"path\", \"value\"],",
-									"                },",
-									"                \"_message\": {\"type\": \"string\"},",
-									"                \"message\": {\"type\": \"string\"},",
-									"            },",
-									"        } ",
-									"    },",
-									"    \"required\": [\"errors\", \"message\", \"_message\"],",
-									"};",
-									"",
-									"pm.test(\"Validate that returned JSON schema is correct\", () => {",
-									"    pm.response.to.have.jsonSchema(emptySchema);",
-									"});",
-									"",
-									"pm.test(\"Validate that a failure request to add a contact returns a JSON body format with correct fields\", function () {",
-									"    pm.response.to.have.status(400);",
-									"    pm.response.to.be.withBody;",
-									"    pm.response.to.be.json;",
-									"});",
-									"",
-									"pm.test(\"Validate that correct error messages are displayed\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"Email is invalid\");",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"email-invalid-format\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -967,7 +998,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.collectionVariables.set(\"PhoneNumber\", \"123\");"
 								],
 								"type": "text/javascript"
 							}
@@ -1044,7 +1075,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"test@test.com\",\n    \"phone\": \"719\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{PhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1062,6 +1093,27 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.collectionVariables.set(\"birthdate\", \"1994-12-01\");",
+							"pm.collectionVariables.set(\"postalCode\", \"40226\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -3067,6 +3119,32 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "email",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "birthdate",
+			"value": ""
+		},
+		{
+			"key": "postalCode",
+			"value": ""
+		},
+		{
+			"key": "bitthdate",
+			"value": ""
+		},
+		{
+			"key": "PhoneNumber",
+			"value": ""
 		}
 	]
 }
