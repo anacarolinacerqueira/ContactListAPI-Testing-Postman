@@ -13,7 +13,7 @@
 
 ### :spiral_notepad: About the service under Test
 
-The [Contact List API](https://documenter.getpostman.com/view/4012288/TzK2bEa8) is a service provide as example in the book ["The Complete Software Tester"](https://www.amazon.com/Complete-Software-Tester-Strategies-High-Quality-ebook/dp/B09NGVVCJ9) by Kristin Jackvony, that i'm currently reading. To this service is available some HTTP methods to manipulate users and contacts. To practice, I planned and executed tests exploring the scenarios (successfullies and failures) involving the contacts endpoint. For each request, a different situation is tested and automatically validated using the postaman library (JavaScript based).
+The [Contact List API](https://documenter.getpostman.com/view/4012288/TzK2bEa8) is a service provide as example in the book ["The Complete Software Tester"](https://www.amazon.com/Complete-Software-Tester-Strategies-High-Quality-ebook/dp/B09NGVVCJ9) by Kristin Jackvony, that i'm currently reading. To this service is available some HTTP methods to manipulate users and contacts. To practice, I planned and executed tests exploring the scenarios (successfullies and failures) involving the contacts resource. For each request, a different situation is tested and automatically validated using the postaman library (JavaScript based).
 
 ## :arrow_forward: How to run this project
 
