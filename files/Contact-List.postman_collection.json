@@ -353,7 +353,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1127,7 +1127,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.collectionVariables.set(\"birthdate\", \"1994-12-01\");"
 								],
 								"type": "text/javascript"
 							}
@@ -1186,7 +1186,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Carla\",\n    \"lastName\": \"Silva\",\n    \"birthdate\": \"1994-11-25\",\n    \"email\": \"carolinna@teste.com\",\n    \"phone\": \"718888888\",\n    \"street1\": \"Rua Teste 2\",\n    \"street2\": \"Rua das APIS 2\",\n    \"city\": \"Ourinhos\",\n    \"stateProvince\": \"MG\",\n    \"postalCode\": \"3257444\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\" \n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1290,7 +1290,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1394,7 +1394,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1498,7 +1498,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1525,7 +1525,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.collectionVariables.set(\"birthdate\", \"45542\");"
 								],
 								"type": "text/javascript"
 							}
@@ -1602,7 +1602,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"01-01-2020\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1706,7 +1706,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1733,7 +1733,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.collectionVariables.set(\"Email\", \"ana@teste\");"
 								],
 								"type": "text/javascript"
 							}
@@ -1810,7 +1810,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"email-invalid-format\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{Email}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1837,7 +1837,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.collectionVariables.set(\"invalidPhone\", \"112\");"
 								],
 								"type": "text/javascript"
 							}
@@ -1914,7 +1914,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"test@test.com\",\n    \"phone\": \"719\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{invalidPhone}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1946,7 +1946,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.collectionVariables.set(\"birthdate\", \"1994-12-01\");"
 								],
 								"type": "text/javascript"
 							}
@@ -1965,13 +1965,13 @@
 									"        \"email\": {\"type\": \"string\"},",
 									"        \"phone\": {\"type\": \"string\"},",
 									"        \"street1\": {\"type\": \"string\"},",
-									"        \"street2\": {\"type\": \"string\"},",
+									"        \"street2\": {\"type\": \"string\"}, ",
 									"        \"city\": {\"type\": \"string\"},",
 									"        \"stateProvince\": {\"type\": \"string\"},",
 									"        \"postalCode\": {\"type\": \"string\"},",
 									"        \"country\": {\"type\": \"string\"},",
-									"        \"owner\": {\"type\": \"string\"},",
-									"        \"__v\": {\"type\": \"integer\"},",
+									"        \"owner\": {\"type\": \"string\"}, ",
+									"        \"__v\": {\"type\": \"integer\"}, ",
 									"    },",
 									"    \"required\": [\"_id\", \"firstName\", \"lastName\", \"birthdate\", \"email\",  \"phone\", \"street1\", \"street2\", \"city\", \"stateProvince\", \"country\", \"owner\", \"__v\"],",
 									"};",
@@ -2005,7 +2005,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Mario Alberto\",\n    \"lastName\": \"Correia\",\n    \"birthdate\": \"1988-11-25\",\n    \"email\": \"marioalberto@teste.com\",\n    \"phone\": \"778888888\",\n    \"street1\": \"Rua Teste 25\",\n    \"street2\": \"Rua das APIS 22\",\n    \"city\": \"Rio de Janeiro\",\n    \"stateProvince\": \"RJ\",\n    \"postalCode\": \"54524\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2109,7 +2109,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2213,7 +2213,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2317,7 +2317,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2344,7 +2344,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.environment.set(\"wrongbirthdate\", \"dsfsd4fef\");"
 								],
 								"type": "text/javascript"
 							}
@@ -2421,7 +2421,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Paula\",\n    \"birthdate\": \"01-01-2020\",\n    \"email\": \"carolina@teste.com\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{wrongbirthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2525,7 +2525,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2552,7 +2552,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.environment.set(\"invalidEmail\", \"ana@teste\");"
 								],
 								"type": "text/javascript"
 							}
@@ -2629,7 +2629,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"email-invalid-format\",\n    \"phone\": \"71999999999\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{invalidEmail}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2656,7 +2656,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.collectionVariables.set(\"invalidPhone\", \"54sd4f\");"
 								],
 								"type": "text/javascript"
 							}
@@ -2733,7 +2733,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ana\",\n    \"lastName\": \"Carolina\",\n    \"birthdate\": \"1994-12-01\",\n    \"email\": \"test@test.com\",\n    \"phone\": \"719\",\n    \"street1\": \"Rua Teste\",\n    \"street2\": \"Rua das APIS\",\n    \"city\": \"Salvador\",\n    \"stateProvince\": \"BA\",\n    \"postalCode\": \"40226590\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"{{invalidPhone}}\",\n    \"street1\": \"{{$randomStreetAddress}}\",\n    \"street2\": \"{{$randomStreetAddress}}\",\n    \"city\": \"{{$randomCity}}\",\n    \"stateProvince\": \"{{$randomCountryCode}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"country\": \"{{$randomCountry}}\"\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2867,11 +2867,6 @@
 									"    pm.response.to.have.status(200);",
 									"    pm.response.to.be.withBody;",
 									"    pm.response.to.be.json;",
-									"});",
-									"",
-									"pm.test(\"Validate that contacts addedd are returned correctly\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"Carla\");",
-									"    pm.expect(pm.response.text()).to.include(\"Mario Alberto\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -3144,6 +3139,22 @@
 		},
 		{
 			"key": "PhoneNumber",
+			"value": ""
+		},
+		{
+			"key": "invalidPhone",
+			"value": ""
+		},
+		{
+			"key": "invalidPhoneNumber",
+			"value": ""
+		},
+		{
+			"key": "Email",
+			"value": ""
+		},
+		{
+			"key": "idUser",
 			"value": ""
 		}
 	]
