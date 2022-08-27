@@ -212,6 +212,9 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"idUser\", jsonData._id);",
+									"",
 									"const contactSchema = {",
 									"    \"type\": \"object\",",
 									"    \"properties\": {",
@@ -243,8 +246,33 @@
 									"    pm.response.to.be.json;",
 									"});",
 									"",
-									"var jsonData = pm.response.json();",
-									"pm.environment.set(\"idUser\", jsonData._id);"
+									"pm.test('Validate that the types returned are correct', () => {",
+									"    pm.expect(jsonData).to.have.property('firstName');",
+									"    pm.expect(jsonData.firstName).to.be.a('string');",
+									"});",
+									"",
+									"/* SAVING USER INFORMATIONS PASSED IN REQUEST INTO VARIABLES */",
+									"var request = JSON.parse(request.data);",
+									"pm.collectionVariables.set(\"firstName_\", request.firstName);",
+									"pm.collectionVariables.set(\"lastName_\", request.lastName);",
+									"pm.collectionVariables.set(\"phone_\", request.phone);",
+									"pm.collectionVariables.set(\"email_\", request.email);",
+									"pm.collectionVariables.set(\"country_\", request.country);",
+									"",
+									"",
+									"/* PRINTING USER INFORMATIONS VARIABLES AS A SIMPLE LOG */",
+									"console.info(\"----------------- USER INFORMATIONS ---------------\");",
+									"console.info(\"First Name: \" + (pm.collectionVariables.get('firstName_')));",
+									"console.info(\"Last Name: \" + (pm.collectionVariables.get('lastName_')));",
+									"console.info(\"Phone Number: \" + (pm.collectionVariables.get('phone_')));",
+									"console.info(\"E-mail: \" + (pm.collectionVariables.get('email_')));",
+									"console.info(\"Country: \" + (pm.collectionVariables.get('country_')));",
+									"",
+									"/* TO SET VARIABLES FROM RESPONSE BODY: ",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"collection_variable_name\", jsonData.json_response_field);",
+									"*/"
 								],
 								"type": "text/javascript"
 							}
@@ -332,7 +360,7 @@
 									"});",
 									"",
 									"var jsonData = pm.response.json();",
-									"pm.environment.set(\"idUser2\", jsonData._id);"
+									"pm.collectionVariables.set(\"idUser2\", jsonData._id);"
 								],
 								"type": "text/javascript"
 							}
@@ -3155,6 +3183,46 @@
 		},
 		{
 			"key": "idUser",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "contact-list",
+			"value": "https://thinking-tester-contact-list.herokuapp.com"
+		},
+		{
+			"key": "idUser2",
+			"value": ""
+		},
+		{
+			"key": "invalidEmail",
+			"value": "ana@teste"
+		},
+		{
+			"key": "wrongbirthdate",
+			"value": "wrongbirthdate"
+		},
+		{
+			"key": "firstName_",
+			"value": ""
+		},
+		{
+			"key": "lastName_",
+			"value": ""
+		},
+		{
+			"key": "phone_",
+			"value": ""
+		},
+		{
+			"key": "email_",
+			"value": ""
+		},
+		{
+			"key": "country_",
 			"value": ""
 		}
 	]
