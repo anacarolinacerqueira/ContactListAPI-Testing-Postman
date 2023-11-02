@@ -1,4 +1,4 @@
-## :desktop_computer: Contact List API - Testing Project using Postman and Newman
+## :desktop_computer: Contact List API - Testing Project using Postman and Newman (html-extra report)
 
 :heavy_check_mark: Test Status: [![Newman Tests](https://github.com/anacarolinacerqueira/ContactListAPI-Testing-Postman/actions/workflows/github-actions-newman-htmlextraReport.yaml/badge.svg)](https://github.com/anacarolinacerqueira/ContactListAPI-Testing-Postman/actions/workflows/github-actions-newman-htmlextraReport.yaml)
 
